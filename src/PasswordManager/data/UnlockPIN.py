@@ -11,4 +11,4 @@ from enum import Enum
 
 class UnlockPIN(str, Enum):
     """Set the desired PIN number here"""
-    PIN = "1111"
+    PIN = "0000"
