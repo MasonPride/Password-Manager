@@ -1,1 +1,8 @@
 cryptography
+flake8
+flake8-docstrings
+flake8-html
+pdoc3
+pep8-naming
+lxml
+tox
