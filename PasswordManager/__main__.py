@@ -1,4 +1,4 @@
-"""Sample Main Project File.
+"""Main Project File.
 
 This file is executed when the entire PasswordManager directory is run using Python
 and serves as the main entry point for the application.

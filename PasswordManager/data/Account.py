@@ -9,9 +9,9 @@ Version: 0.1
 
 
 class Account():
-    """Creates the Account object"""
+    """Creates the Account object."""
     def __init__(self, platform: str, username: str, password: str) -> None:
-        """Constructor.
+        """Account object Constructor.
 
         Args:
             platform: the platform (instagram, snapchat, facebook, etc.)

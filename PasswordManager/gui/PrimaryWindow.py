@@ -18,7 +18,7 @@ class PrimaryWindow(tk.Tk):
     def __init__(self) -> None:
         """Contrsucts the PrimaryWindow"""
         tk.Tk.__init__(self)
-        self.minsize(width=200, height=400)
+        self.minsize(width=270, height=400)
         self.title("Password Manager")
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
