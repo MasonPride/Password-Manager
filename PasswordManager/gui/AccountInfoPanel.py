@@ -34,19 +34,19 @@ class AccountInfoPanel(tk.Frame):
         platform_label = tk.Label(frame, text="Platform: ")
         platform_label.grid(row=r, column=0, padx=10, pady=10, sticky="NSEW")
         self.__platform_entry = tk.Entry(frame)
-        self.__platform_entry.grid(row=r, column=1, padx=10, pady=10)
+        self.__platform_entry.grid(row=r, column=1, padx=0, pady=10, sticky="NSEW")
         r += 1
         
         username_label = tk.Label(frame, text="Username: ")
         username_label.grid(row=r, column=0, padx=10, pady=10, sticky="NSEW")
         self.__username_entry = tk.Entry(frame)
-        self.__username_entry.grid(row=r, column=1, padx=10, pady=10)
+        self.__username_entry.grid(row=r, column=1, padx=0, pady=10)
         r += 1
         
         password_label = tk.Label(frame, text="Password: ")
         password_label.grid(row=r, column=0, padx=10, pady=10, sticky="NSEW")
         self.__password_entry = tk.Entry(frame)
-        self.__password_entry.grid(row=r, column=1, padx=10, pady=10)
+        self.__password_entry.grid(row=r, column=1, padx=0, pady=10)
         r += 1
 
         save_button = tk.Button(master=self, text="Save",

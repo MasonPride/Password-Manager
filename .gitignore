@@ -2,3 +2,4 @@ __pycache__/
 .tox
 reports/
 AccountInfoTest.txt
+.vscode/
