@@ -1,6 +1,6 @@
 """Info Panel Class.
 
-Creates the info panel panel in our GUI.
+Creates the info panel in our GUI.
 
 Author: Mason Pride
 Version: 0.1
@@ -15,8 +15,18 @@ from PasswordManager.gui.AccountInfoPanel import AccountInfoPanel
 
 
 class InfoPanel(tk.Frame):
+    """Creates the Info Panel.
+    
+    Args:
+        tk (_type_): Frame
+    """
     
     def __init__(self, master) -> None:
+        """InfoPanel Constructor.
+
+        Args:
+            master (_type_): PrimaryWindow
+        """
         self.__master = master
         tk.Frame.__init__(self, master=self.__master)
         self.grid_rowconfigure(0, weight=1)
@@ -51,16 +61,24 @@ class InfoPanel(tk.Frame):
         delete_button.grid(row=4, column=0, sticky="WE")
             
     def load_account_panel(self, text: str, account: Account = None):
-        """Loads the account panel."""
+        """Loads an account panel.
+
+        Loads the account panel with appropriate 
+        account settings
+
+        Args:
+            text (str): _description_
+            account (Account, optional): Account to open. Defaults to None.
+        """
         self.__master.load_panel(AccountInfoPanel(self.__master))        
     
     def save_account(self, account: Account) -> None:
-        """Save item method.
+        """Save account method.
 
-        Saves an instance of an item to our sidebar.
+        Saves an instance of an account to our info panel.
 
         Args:
-            item: Instance of an item.
+            account (Account): Instance of an account.
         """
         for account_id, value in self.__items.items():
             if account is value:
@@ -69,14 +87,14 @@ class InfoPanel(tk.Frame):
         self.__items[self.__update_tree(account)] = account
     
     def __update_tree(self, account: Account, index: str = "end") -> str:
-        """_summary_
+        """Updates the tree in our InfoPanel.
 
         Args:
-            account (Account): _description_
-            index (str, optional): _description_. Defaults to "end".
+            account (Account): Account
+            index (str, optional): Current index. Defaults to "end".
 
         Returns:
-            str: _description_
+            str: Index
         """
         if index == "end":
             index = self.__order_list.insert(parent="",
@@ -92,6 +110,11 @@ class InfoPanel(tk.Frame):
         return index
     
     def action_performed(self, text: str) -> None:
+        """Action performed method.
+
+        Args:
+            text (str): Representation of action
+        """
         print(text)
         if text == "edit":
             node = self.__order_list.focus()

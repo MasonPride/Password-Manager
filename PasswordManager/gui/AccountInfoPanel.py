@@ -9,8 +9,18 @@ import tkinter as tk
 from PasswordManager.data.Account import Account
 
 class AccountInfoPanel(tk.Frame):
+    """Account Info Frame."""
     
     def __init__(self, master, account: Account = None) -> None:
+        """Creates the account info panel.
+
+        Panel that handles inputting the account
+        information parameters.
+
+        Args:
+            master (_type_): PrmaryWindow
+            account (Account, optional): Account to be editted. Defaults to None.
+        """
         self.__master = master
         tk.Frame.__init__(self, master=self.__master)
         self.grid_columnconfigure(0, weight=1)
@@ -61,6 +71,11 @@ class AccountInfoPanel(tk.Frame):
         cancel_button.grid(row=r, column=0, sticky="WE")
 
     def action_performed(self, text: str):
+        """Action performed method.
+
+        Args:
+            text (str): Representation of action
+        """
         print(text)
         if text == "save":
             platform = self.__platform_entry.get()
