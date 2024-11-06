@@ -9,8 +9,9 @@ import tkinter as tk
 from tkinter import simpledialog
 from tkinter.ttk import Treeview, Scrollbar
 from typing import Dict
-from PasswordManager.data.AccountManager import AccountManager
+#from PasswordManager.data.AccountManager import AccountManager
 from PasswordManager.data.Account import Account
+from PasswordManager.gui.AccountInfoPanel import AccountInfoPanel
 
 
 class InfoPanel(tk.Frame):
@@ -21,6 +22,7 @@ class InfoPanel(tk.Frame):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
+        self.__items: Dict[str, Account] = dict()
         list_frame = tk.Frame(master=self)
         list_frame.grid_columnconfigure(0, weight=1)
         list_frame.grid_rowconfigure(0, weight=1)
@@ -33,31 +35,77 @@ class InfoPanel(tk.Frame):
         order_list_scrollbar.grid(row=0, column=1, sticky="NSE")
         list_frame.grid(row=0, column=0, columnspan=2, sticky="NSEW")
         
-        new_button = tk.Button(master=self, text="Add Account",
+        add_button = tk.Button(master=self, text="Add Account",
                             command=lambda:
-                            self.action_performed("add"))
-        new_button.grid(row=2, column=0, sticky="NSEW")
+                            self.load_account_panel("add"))
+        add_button.grid(row=2, column=0, sticky="NSEW")
         
-        self.__account_manager = AccountManager()
-        for info in self.__account_manager.account_list:
-            self.__update_tree(info)
+        edit_button = tk.Button(master=self, text="Edit Account",
+                            command=lambda:
+                            self.action_performed("edit"))
+        edit_button.grid(row=3, column=0, sticky="WE")
+        
+        delete_button = tk.Button(master=self, text="Delete Account",
+                            command=lambda:
+                            self.action_performed("delete"))
+        delete_button.grid(row=4, column=0, sticky="WE")
             
+    def load_account_panel(self, text: str, account: Account = None):
+        """Loads the account panel."""
+        self.__master.load_panel(AccountInfoPanel(self.__master))        
+    
+    def save_account(self, account: Account) -> None:
+        """Save item method.
+
+        Saves an instance of an item to our sidebar.
+
+        Args:
+            item: Instance of an item.
+        """
+        for account_id, value in self.__items.items():
+            if account is value:
+                self.__update_tree(account, account_id)
+                return
+        self.__items[self.__update_tree(account)] = account
+    
     def __update_tree(self, account: Account, index: str = "end") -> str:
+        """_summary_
+
+        Args:
+            account (Account): _description_
+            index (str, optional): _description_. Defaults to "end".
+
+        Returns:
+            str: _description_
+        """
         if index == "end":
-        # new item
-            index = self.__order_list.insert(parent="", index=index, text=str(account.platform))
+            index = self.__order_list.insert(parent="",
+                                             index="end",
+                                             text=str(account.platform))
+        else:
+            self.__order_list.item(index, text=str(account.platform))
+            for child in self.__order_list.get_children(index):
+                self.__order_list.delete(child)
         self.__order_list.item(index)
         self.__order_list.insert(parent=index, index="end", text="Username: " + str(account.username))
         self.__order_list.insert(parent=index, index="end", text="Password: " + str(account.password))
         return index
-
+    
     def action_performed(self, text: str) -> None:
         print(text)
-        if text == "add":
-            platform = simpledialog.askstring("Platform", "What platform?")
-            username = simpledialog.askstring("Username", "What your username?")
-            password = simpledialog.askstring("Password", "What is your password?")
-            new_account = Account(platform, username, password)
-            self.__account_manager.add_account(new_account)
-            self.__update_tree(new_account)
+        if text == "edit":
+            node = self.__order_list.focus()
+            if node:
+                while node not in self.__items:
+                    node = self.__order_list.parent(node)
+                account: Account = self.__items[node]
+                if isinstance(account, Account):
+                    self.__master.load_panel(AccountInfoPanel(self.__master, account))
+        elif text == "delete":
+            node = self.__order_list.focus()
+            if node:
+                while node not in self.__items:
+                    node = self.__order_list.parent(node)
+                del self.__items[node]
+                self.__order_list.delete(node)
             

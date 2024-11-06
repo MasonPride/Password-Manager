@@ -10,7 +10,7 @@ Version: 0.1
 
 class Account():
     """Creates the Account object."""
-    def __init__(self, platform: str, username: str, password: str) -> None:
+    def __init__(self, platform: str = None, username: str = None, password: str = None) -> None:
         """Account object Constructor.
 
         Args:
@@ -30,6 +30,11 @@ class Account():
             The platform attribute as a str
         """
         return self.__platform
+    
+    @platform.setter
+    def platform(self, value: str) -> None:
+        """Setter method for platform."""
+        self.__platform = value
 
     @property
     def username(self) -> str:
@@ -40,6 +45,11 @@ class Account():
         """
         return self.__username
     
+    @username.setter
+    def username(self, value: str) -> None:
+        """Setter method for username."""
+        self.__username = value
+    
     @property
     def password(self) -> str:
         """Getter method for password.
@@ -48,6 +58,11 @@ class Account():
             The platform attribute as a str
         """
         return self.__password
+    
+    @password.setter
+    def password(self, value: str) -> None:
+        """Setter method for password."""
+        self.__password = value
 
     def __str__(self) -> str:
         """String description sizes.

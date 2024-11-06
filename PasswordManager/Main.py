@@ -18,19 +18,11 @@ class Main:
     @staticmethod
     def main(args: List[str]) -> None:
         """Main method."""
+
         unlock = Unlock().unlock_manager()
         if unlock:
             PrimaryWindow().mainloop()
         else:
             exit()
-        #handler = FileHandler("AccountInfo.txt", b'ize-EjWncqijjNMgJsdhuHxm3o5xC4W1tZ9MRAH2Uog=')
-        #handler.write("Instagram InstaUser InstaPassword")
-        #handler.write(str(handler.get_key()))
-        #text = handler.read()
-        #print(text)
-        #handler.clear()
-        #accountMan = AccountManager()
-        #print(accountMan)
-        #accountMan.add_account(Account("Snapchat", "SnapUser", "SnapPassword"))
-        #accountMan.remove_account(Account("Snapchat", "SnapUser", "SnapPassword"))
-        #print(accountMan)
+        #account_man = AccountManager()
+

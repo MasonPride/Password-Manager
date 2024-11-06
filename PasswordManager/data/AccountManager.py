@@ -9,6 +9,7 @@ Date: 10/29/24
 from typing import List
 from PasswordManager.data.Account import Account
 from PasswordManager.data.FileHandler import FileHandler
+from typing import Dict
 
 
 class AccountManager():
@@ -33,6 +34,8 @@ class AccountManager():
             for account in content:
                 account_split = account.split(" ")
                 self.__account_list.append(Account(account_split[0], account_split[1], account_split[2]))
+        else:
+            print("File contents empty")
 
     @property
     def account_list(self) -> List[Account]:
@@ -50,8 +53,13 @@ class AccountManager():
         Args:
             account: Account being added to list.
         """
-        self.__account_list.append(account)
-        self.__file_handler.write(str(account))
+        if account in self.__account_list:
+            print("Already in account list")
+        if account.platform != "" and account.username != "" and account.password != "":
+            self.__account_list.append(account)
+            self.__file_handler.write(str(account))
+        else:
+            print("Could not add account, invalid account settings")
 
     def __str__(self) -> str:
         """String override method."""
